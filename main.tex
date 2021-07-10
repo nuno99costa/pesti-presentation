@@ -5,8 +5,10 @@
 
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
-
+\usepackage{caption}
+\captionsetup{justification=raggedright, singlelinecheck=true}
 \usepackage{subfig}
+\captionsetup[subfloat]{labelformat=empty}
 
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
@@ -17,16 +19,15 @@
 \usepackage{graphicx}
 \usepackage[group-separator = {,}]{siunitx}
 
-
 \newcommand{\faro}[0]{FARO\textsuperscript{\textregistered}\space}
 \newcommand{\farons}[0]{FARO\textsuperscript{\textregistered}}
 
 % Use metropolis theme
-\title{Hyper Parameter Optimization \\using Machine Learning}
+\title{Hyper Parameter Optimization \newline using Machine Learning}
 \date{July, 2021}
-\author{{Nuno Costa} \\
-{\textit{ISEP Advisor}: Carlos Ramos} \\
-{\textit{External Advisor}: Hooshiar Zolfagharnasab}}
+\author{{Nuno Costa} \texorpdfstring{ \\
+{\textit{ISEP Advisor}: Carlos Ramos} \newline
+{\textit{External Advisor}: Hooshiar Zolfagharnasab}}{}}
 \institute{Polytechnic of Porto - School of Engineering (ISEP)}
 
 
@@ -35,48 +36,72 @@
   \maketitle
   \section{Introduction}
   \begin{frame}{\faro Overview}
+    \vspace{1cm}
     \begin{columns}
-      \begin{column}{0.6\textwidth}
-        \faro is a market leader in the 3D metrology market with over US \$ 150 M of gross profit in 2020. It produces a large variety of devices (contact and non-contact measurement arms, laser scanners) and a suite of software products which integrate the devices into the customers workflow.
+      \begin{column}{0.7\textwidth}
+          \faro is a leader in the 3D metrology market 
+
+          Over US \$ 150 M gross profit in 2020
+
+          Sells hardware devices and software solutions
       \end{column}
-      \begin{column}{0.5\textwidth}
+      \begin{column}{0.3\textwidth}
         \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{images/faro_logo.png}
-        \caption{\faro logo}
+        \includegraphics[width=\textwidth]{images/faro_logo.png}
         \end{figure}
       \end{column}
     \end{columns}
-  \end{frame}
-  \begin{frame}{\faro Devices}
     \begin{columns}
       \begin{column}{0.30\textwidth}
         \begin{figure}
           \centering
           \includegraphics[width=\textwidth]{images/faro_quantum_s_arm.png}
-          \caption{\newline\faro Quantum S \newline Arm}
+          \caption*{\faro Quantum Max \newline Scan Arm}
         \end{figure}
       \end{column}
       \begin{column}{0.30\textwidth}
         \begin{figure}
           \centering
           \includegraphics[width=\textwidth]{images/faro_scanner.jpg}
-          \caption{\newline\faro Focus Laser Scanner}
+          \caption*{\faro Focus \newline Laser Scanner}
         \end{figure}
       \end{column}
       \begin{column}{0.30\textwidth}
         \begin{figure}
           \centering
           \includegraphics[width=\textwidth]{images/faro-probe.jpg}
-          \caption{\newline\faro Vantage Laser Tracker}
+          \caption*{\faro Vantage \newline Laser Tracker}
         \end{figure}
       \end{column}
     \end{columns}
   \end{frame}
   \begin{frame}{Problem Description}
-    \faro is investing heavily  in machine learning within its software suite. As such, there is a need for algorithm training tools that integrate into \faro codebase.
+    \faro is investing heavily in machine learning. 
 
-    This project focuses on demonstrating successful usage of these tools with \faro software, specifically a function within CAM2\textsuperscript{\textregistered}, one of \faro software offerings. 
+    There is a need for algorithm training tools that integrate into \faro codebase.
+
+    This project focuses on demonstrating successful usage of these tools with \faro software.
+
+    We attempt to improve a point cloud alignment function within CAM2\textsuperscript{\textregistered}.
+
+    This function is time expensive and hard to optimize manually.
+  \end{frame}
+  \begin{frame}{Point Cloud Alignment Function}
+    \begin{columns}
+      \begin{column}{0.55\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{images/unaligned.png}
+        \end{figure}
+      \end{column}
+      \begin{column}{0.55\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{images/aligned.png}
+        \end{figure}
+      \end{column}
+    \end{columns}
   \end{frame}
   \begin{frame}{Objectives}
     The objective of this internship was to create a solution for hyper parameter optimization (HPO) in software solutions developed by \farons. These main goals were defined:
@@ -91,12 +116,17 @@
   \section{State of the Art}
   \subsection{Related Works}
   \begin{frame}{Related Works}
-    With regards to related works, we have explored the existing field of hyper parameter optimization. This field has a long history, dating back to the 1990s. Its contributors have produced a variety of solutions to the problem at hand. These solutions can be divided into 2 categories: black-box optimization and multi-fidelity optimization.
+    We have explored the existing field of hyper parameter optimization. 
+
+    This field has a long history. Its contributors have produced a variety of solutions for the problem at hand. 
+
+    These solutions can be divided into 2 categories: black-box optimization and multi-fidelity optimization.
   \end{frame}
   \begin{frame}{Related Works}
     \begin{figure}
           \centering
           \includegraphics[width=\textwidth]{images/state_art-taxonomy_optimizers.png}
+          \caption*{A Taxonomy for Hyper-parameter Optimization Techniques (Elshawi, Maher, \& Sakr, 2019)}
         \end{figure}
   \end{frame}
   \begin{frame}{Black-Box Optimization Algorithms}
@@ -104,30 +134,26 @@
     \begin{itemize}
       \item{Grid Search}
       \item{Random Search}
-      \item{Simulated Annealing}
       \item{Bayesian Optimization}
-      \item{Population Based Optimization}
-      \item{Genetic Algorithms}
-      \item{Gradient-based Optimization}
-      \item{Spectral Optimization}
     \end{itemize}
   \end{frame}
   \begin{frame}{Multi-Fidelity Optimization Algorithms}
-    An area of increased attention in the HPO research field is multi-fidelity techniques. These methods focus on decreasing the evaluation cost of a given function by combining cheap low-fidelity and expensive high-fidelity evaluations.
+    Multi-fidelity optimization algorithms focus on decreasing the evaluation cost of a given function by combining cheap low-fidelity and expensive high-fidelity evaluations.
     \begin{itemize}
-      \item{Bandit-based Optimization}
-        \begin{itemize}
-          \item{Successive Halving}
           \item{HyperBand}
           \item{Bayesian Optimization and HyperBand (BOHB)}
-        \end{itemize}
-      \item{Learning Curve Modelling}
     \end{itemize}
   \end{frame}
 
   \subsection{Existing Technologies}
   \begin{frame}{Existing Technologies}
-    HPO is an important step in a machine learning development pipeline. This is usually implemented in a integrated machine learning development framework. To comply with the requirements and limitations of this project, we have paid special attention to frameworks that are model agnostic, written in Python and able to work with black-box functions. We also specify other important software tools options.
+    HPO is an important part of machine learning development. 
+
+    This is usually implemented in a integrated machine learning development framework. 
+
+    To comply with the scope of this project, we have researched frameworks that are model agnostic, written in Python and able to work with black-box functions.
+
+    We also specify other important software tools options.
   \end{frame}
   \begin{frame}{Hyper Parameter Optimization}
     \begin{figure}[ht]
@@ -141,7 +167,7 @@
         \subfloat[Amazon Sagemaker]{\includegraphics[width=2cm]{images/sagemaker.png}} &
         \subfloat[Google HyperTune]{\includegraphics[width=2cm]{images/google_ai.png}}
       \end{tabular}
-      \caption{Hyper Parameter Optimization Libraries}
+      \caption*{Hyper Parameter Optimization Libraries}
     \end{figure}
   \end{frame}
   \begin{frame}{Virtualization}
@@ -152,7 +178,7 @@
       \subfloat[Kubernetes]{\includegraphics[width = 2cm]{images/k8s-logo.png}} &
       \subfloat[VMware Workstation]{\includegraphics[width = 2cm]{images/vmworkstation.png}}
       \end{tabular}
-      \caption{Commercial Virtualization Products}
+      \caption*{Commercial Virtualization Products}
     \end{figure}
   \end{frame}
   \begin{frame}{Machine Learning Data Visualization}
@@ -165,7 +191,7 @@
       \subfloat[Guild AI]{\includegraphics[width = 2cm]{images/guildai.jpg}} &
       \subfloat[Comet]{\includegraphics[width = 2cm]{images/coemt.png}}
       \end{tabular}
-      \caption{Machine Learning Data Visualization Tools}
+      \caption*{Machine Learning Data Visualization Tools}
     \end{figure}
   \end{frame}
 
@@ -173,11 +199,13 @@
   \begin{frame}{Domain}
     \begin{figure}
       \includegraphics[width=\textwidth]{images/domain_model.png}
-      \caption{Domain Model}
+      \caption*{Domain Model}
     \end{figure}
   \end{frame}
   \begin{frame}{Requirements}
-    The requirements for this project was using the FURPS+ model.
+    The requirements for this project followed the FURPS+ model.
+
+    MAYBE ADD IMAGE HERE
   \end{frame}
   \begin{frame}{Functionality}
     \begin{itemize}
@@ -238,39 +266,89 @@
   \end{frame}
 
   \section{Design}
+  \begin{frame}{Design}
+    The developed system was designed using the C4 model, a technique for modelling the architecture of software systems. 
+    This system documents a software system by splitting it into multiple levels.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{images/c4.jpg}
+      \caption*{C4 Model}
+    \end{figure}
+  \end{frame}
   \begin{frame}{Context}
-    hello world
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{images/c1_new.png}
+      \caption*{Level 1: Container diagram}
+    \end{figure}
   \end{frame}
   \begin{frame}{Containers}
-    hello world
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{images/c2_new.png}
+      \caption*{Level 2: Container diagram}
+    \end{figure}
   \end{frame}
   \begin{frame}{Components}
-    hello world
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/c3_python.png}
+    \caption*{Level 3: Python Environment Component Diagram}
+    \label{fig:l3_python}
+    \end{figure}
   \end{frame}
-  \begin{frame}{Code}
-    hello world
+  \begin{frame}{Components}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/c3_cam2.png}
+    \caption*{Level 3: CAM2 Component Diagram}
+    \label{fig:l3_cam2}
+    \end{figure}
+  \end{frame}
+  \begin{frame}{Components}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/c3_wandb.png}
+    \caption*{Level 3: WandB Component Diagram}
+    \label{fig:l3_wandb}
+    \end{figure}
   \end{frame}
 
   \section{Implementation}
-  \begin{frame}{Description}
-    hello world
-  \end{frame}
-  \begin{frame}{Tests}
-    hello world
-  \end{frame}
   \begin{frame}{Evaluation}
-    DEMO HERE
+    \begin{figure}
+      \centering
+      \href{https://bit.ly/3yIZQC4}{\includegraphics[width=0.6\textwidth]{images/wandb.png}}
+    \end{figure}
   \end{frame}
 
   \section{Conclusion}
   \begin{frame}{Objectives}
-    hello world
+    From the initially defined objectives, we can say each of these goals was achieved with various degrees of success. 
+    \begin{itemize}
+      \item Developed a solution that includes a wide range of HPO algorithms to use, most of which are academically tested and state of the art.
+      \item Developed tests for the developed infrastructure behind the solution.
+      \item Successfully integrated the solution into CAM2.
+      \item Demonstrated real world value to the team at \farons.
+    \end{itemize}
   \end{frame}
   \begin{frame}{Limitations and Future Work}
-    hello world
+    First and foremost, the non-parallel nature of CAM2\textsuperscript{\textregistered} limits the developed solution. In the future, this issue can be overcome by using networked computers, where we can run CAM2\textsuperscript{\textregistered} in a parallel way.
+
+    Furthermore, the hyper parameters exposed through the CAM2\textsuperscript{\textregistered} API are not complete. As such, we cannot reliably validate the current configuration of these hyper parameters and in future work exposing more parameters and optimizing these as well may yield better results.
+
+    Finally, after analysing the results, we believe that the point cloud that is provided to the CAM2\textsuperscript{\textregistered} software may be an important factor to the performance of the PCA function. In the future, further refining the data set, separating and finding common features between each separate subset may allow for even better optimization.
   \end{frame}
   \begin{frame}{Final Remarks}
-    hello world
+    In retrospect, the author is overwhelmingly satisfied with the project, its results and the experience provided by \farons 's Research Department.
+
+    Integrating a variety of systems and services has provided the author with valuable insight into API management. 
+
+    The tight connection with ML and AI through the HPO algorithms also enabled the author to understand this field of research more thoroughly.
+
+    The introduction of new concepts was a novel experience, but with proper research the author was able to understand the introduced concepts.
+
+    Overall, the author has found this internship to be a positive academically and professionally and is thankful to all stakeholders in this project.
   \end{frame}
 
 

@@ -26,6 +26,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
+          latexmk_use_lualatex: true
           pre_compile: | 
             ${{ env.TEXLIVE_WORKAROUND }}
           root_file: main.tex

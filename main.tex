@@ -39,11 +39,11 @@
     \vspace{1cm}
     \begin{columns}
       \begin{column}{0.7\textwidth}
-          \faro is a leader in the 3D metrology market 
-
-          Over US \$ 150 M gross profit in 2020
-
-          Sells hardware devices and software solutions
+          \begin{itemize}
+            \item Leader in the 3D metrology market
+            \item > US \$ 150 M gross profit in 2020
+            \item Markets hardware devices and software solutions
+          \end{itemize}
       \end{column}
       \begin{column}{0.3\textwidth}
         \begin{figure}
@@ -139,10 +139,21 @@
   \end{frame}
   \begin{frame}{Multi-Fidelity Optimization Algorithms}
     Multi-fidelity optimization algorithms focus on decreasing the evaluation cost of a given function by combining cheap low-fidelity and expensive high-fidelity evaluations.
-    \begin{itemize}
-          \item{HyperBand}
-          \item{Bayesian Optimization and HyperBand (BOHB)}
-    \end{itemize}
+    \begin{columns}[t]
+      \begin{column}{0.55\textwidth}
+        \begin{itemize}
+              \item{HyperBand}
+              \item{Bayesian Optimization and HyperBand (BOHB)}
+        \end{itemize}
+      \end{column}
+      \begin{column}{0.55\textwidth}
+        \begin{figure}[H]
+          \centering
+          \includegraphics[width=\textwidth]{images/bohb.png}
+          \caption*{Comparison between Algorithms}
+        \end{figure}
+      \end{column}
+    \end{columns}
   \end{frame}
 
   \subsection{Existing Technologies}
@@ -204,8 +215,11 @@
   \end{frame}
   \begin{frame}{Requirements}
     The requirements for this project followed the FURPS+ model.
-
-    MAYBE ADD IMAGE HERE
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{images/furps.png}
+      \caption*{FURPS Model}
+    \end{figure}
   \end{frame}
   \begin{frame}{Functionality}
     \begin{itemize}
@@ -326,29 +340,27 @@
   \begin{frame}{Objectives}
     From the initially defined objectives, we can say each of these goals was achieved with various degrees of success. 
     \begin{itemize}
-      \item Developed a solution that includes a wide range of HPO algorithms to use, most of which are academically tested and state of the art.
-      \item Developed tests for the developed infrastructure behind the solution.
-      \item Successfully integrated the solution into CAM2.
+      \item Developed a solution that includes a wide range of academically tested and state of the art HPO algorithms.
+      \item Developed tests for the infrastructure behind the solution.
+      \item Integrated the solution into CAM2.
       \item Demonstrated real world value to the team at \farons.
     \end{itemize}
   \end{frame}
   \begin{frame}{Limitations and Future Work}
-    First and foremost, the non-parallel nature of CAM2\textsuperscript{\textregistered} limits the developed solution. In the future, this issue can be overcome by using networked computers, where we can run CAM2\textsuperscript{\textregistered} in a parallel way.
-
-    Furthermore, the hyper parameters exposed through the CAM2\textsuperscript{\textregistered} API are not complete. As such, we cannot reliably validate the current configuration of these hyper parameters and in future work exposing more parameters and optimizing these as well may yield better results.
-
-    Finally, after analysing the results, we believe that the point cloud that is provided to the CAM2\textsuperscript{\textregistered} software may be an important factor to the performance of the PCA function. In the future, further refining the data set, separating and finding common features between each separate subset may allow for even better optimization.
+    \begin{itemize}
+    \item The non-parallel nature of CAM2\textsuperscript{\textregistered} limits the developed solution. This issue can be overcome by using networked computers.
+    \item The hyper parameters exposed through the CAM2\textsuperscript{\textregistered} API are not complete. We cannot reliably confirm the validity of any solution. Exposing more parameters and optimizing these as well may yield better results.
+    \item We believe that the provided point cloud may be an important factor to the performance of the PCA function. Further refining the data set and finding common features between subsets may allow for better optimization.
+    \end{itemize}
   \end{frame}
   \begin{frame}{Final Remarks}
-    In retrospect, the author is overwhelmingly satisfied with the project, its results and the experience provided by \farons 's Research Department.
+    In retrospect, the author is satisfied with the experience provided by \farons 's Research Department.
 
-    Integrating a variety of systems and services has provided the author with valuable insight into API management. 
+    Integrating a variety of systems and services has provided the author with valuable insight into API management.
 
-    The tight connection with ML and AI through the HPO algorithms also enabled the author to understand this field of research more thoroughly.
+    The tight connection with ML and AI in the project enabled the author to understand this field of research more thoroughly.
 
-    The introduction of new concepts was a novel experience, but with proper research the author was able to understand the introduced concepts.
-
-    Overall, the author has found this internship to be a positive academically and professionally and is thankful to all stakeholders in this project.
+    Overall, the author has found this internship to be a academic and professional positive and is thankful to all stakeholders in this project.
   \end{frame}
 
 
